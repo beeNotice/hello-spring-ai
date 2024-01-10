@@ -29,9 +29,9 @@ public class SimpleAiService {
 
     public void run(){
         System.out.println("Running chatClient with implementation - " + chatClient.getClass());
-        //helloPrompt();
+        helloPrompt();
         //templatedPrompt();
-        stuffedPrompt();
+        //stuffedPrompt();
     }
 
     public void helloPrompt(){
