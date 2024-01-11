@@ -20,7 +20,7 @@ public class SimpleAiService {
     @Value("classpath:/prompts/prompt-with-context.st")
     private Resource promptWithContextResource;
 
-    @Value("classpath:/docs/developers-conferences-agenda.md")
+    @Value("classpath:/docs/custom-data.md")
     private Resource docsToStuffResource;
 
     public SimpleAiService(ChatClient chatClient) {
@@ -29,26 +29,27 @@ public class SimpleAiService {
 
     public void run(){
         System.out.println("Running chatClient with implementation - " + chatClient.getClass());
-        helloPrompt();
-        //templatedPrompt();
-        //stuffedPrompt();
+        String question = "What is BlahJioKah?";
+        helloPrompt(question);
+        //templatedPrompt(question);
+        //stuffedPrompt(question);
     }
 
-    public void helloPrompt(){
-        String response = chatClient.generate("What will be the date and place of the Kubecon in 2024?");
+    public void helloPrompt(String question){
+        String response = chatClient.generate(question);
         System.out.println(response);
     }
 
-    public void templatedPrompt(){
+    public void templatedPrompt(String question){
         PromptTemplate promptTemplate = new PromptTemplate(promptResource);
-        Prompt prompt = promptTemplate.create(Map.of("question", "What will be the date and place of the Kubecon in 2024?"));
+        Prompt prompt = promptTemplate.create(Map.of("question", question));
         String response = chatClient.generate(prompt).getGeneration().getContent();
         System.out.println(response);
     }
 
-    public void stuffedPrompt(){
+    public void stuffedPrompt(String question){
         PromptTemplate promptTemplate = new PromptTemplate(promptWithContextResource);
-        Prompt prompt = promptTemplate.create(Map.of("context", docsToStuffResource, "question", "What will be the date and place of the Kubecon in 2024?"));
+        Prompt prompt = promptTemplate.create(Map.of("context", docsToStuffResource, "question", question));
         String response = chatClient.generate(prompt).getGeneration().getContent();
         System.out.println(response);
     }

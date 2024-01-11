@@ -1,45 +1,54 @@
-## Doc
+# Hello Spring AI
 
-* https://docs.spring.io/spring-ai/reference/getting-started.html
-* https://docs.spring.io/spring-ai/reference/api/clients/azure-openai.html#_gettting_started
+This is a simple sample project to kickstart a Spring AI application.
+It integrates with Azure OpenAI and Ollama.
 
-
+The official documentation of the project is [here](https://docs.spring.io/spring-ai/reference/).
 
 ## Spring Project Initialization
 
 * https://start.spring.io/
-  * 3.2.2 (SNAPSHOT)
-  * hello-azure-open-ai
+
+> 💡 Ideally chose a snapshot version to get the snapshots repositories configured.
 
 ## Azure Open AI
 
+Quickly develop generative AI experiences with a diverse set of prebuilt and curated models from OpenAI, Meta and beyond.
+
+### Deploy Model
+
 * https://portal.azure.com/
   * Generate keys
-  * Add dependency
-  * Configure Keys
+  * Deploy Model
 
-## Prompt
+### Configure the Application
 
-* https://github.com/scraly/developers-conferences-agenda
-
-## Tuning
-
-spring.ai.azure.openai.chat.temperature=0
-
+Configure Keys
 ```
-The date of the events are defined as follows:
-* The Month is defined in the ## level as the name
-* The days are the first information of the line of the event
-* It can be a single date, or a period
-* All events have a date
+spring.ai.azure.openai.api-key=xxx
+spring.ai.azure.openai.endpoint=https://xxx.openai.azure.com/
+spring.ai.azure.openai.chat.model=gpt-35-turbo-16k
 ```
 
-## Local Dev
+Add dependency to the application
+```
+<dependency>
+    <groupId>org.springframework.ai</groupId>
+    <artifactId>spring-ai-azure-openai-spring-boot-starter</artifactId>
+    <version>0.8.0-SNAPSHOT</version>
+</dependency>
+```
 
-### Ollama
+> 💡 Configuration parameters are available [here](https://docs.spring.io/spring-ai/reference/api/clients/openai.html#_getting_started).
+
+## Local Development with Ollama
+
+Get up and running with large language models, locally.
 
 * https://ollama.ai/
 * https://github.com/jmorganca/ollama
+
+### Deploy Model
 
 ```
 curl https://ollama.ai/install.sh | sh
@@ -48,10 +57,17 @@ ollama list
 ollama run orca-mini
 ```
 
-### Spring AI
+### Configure the Application
 
-* https://docs.spring.io/spring-ai/reference/api/clients/ollama.html#_getting_started
+Configure Keys
+```
+# We have to disable the autoconfiguration with this implementation yet
+spring.main.web-application-type=none
+spring.ai.ollama.base-url=http://localhost:11434
+spring.ai.ollama.chat.model=orca-mini
+```
 
+Add dependency to the application
 ```
 <dependency>
    <groupId>org.springframework.ai</groupId>
@@ -59,9 +75,6 @@ ollama run orca-mini
    <version>0.8.0-SNAPSHOT</version>
 </dependency>
 ```
-Be carrefull needs spring-boot-starter-web at this time.
 
-```
-spring.ai.ollama.base-url=localhost:11434
-spring.ai.ollama.model=orca-mini
-```
+> 💡 Configuration parameters are available [here](https://docs.spring.io/spring-ai/reference/api/clients/ollama.html#_getting_started).
+
